@@ -1,0 +1,101 @@
+
+header {
+    
+    background: rgb(88, 244, 249);
+    padding: 0.8rem 5%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+html {
+    scroll-behavior: smooth;
+}
+#gallery {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;      
+    min-height: 80vh;        
+    background-color: #0b0a0a; 
+    padding: 40px 0;
+}
+const chatBtn = document.getElementById('chatBtn');
+const chatBox = document.getElementById('chatBox');
+const closeBtn = document.getElementById('closeBtn');
+const sendBtn = document.getElementById('sendBtn');
+const userInput = document.getElementById('userInput');
+const chatBody = document.getElementById('chatBody');
+
+// Toggle chat visibility
+chatBtn.onclick = () => chatBox.style.display = 'flex';
+closeBtn.onclick = () => chatBox.style.display = 'none';
+
+// Send message
+sendBtn.onclick = () => {
+    const text = userInput.value.trim();
+    if (text) {
+        // Add User Message
+        const userDiv = document.createElement('div');
+        userDiv.className = 'message user';
+        userDiv.textContent = text;
+        chatBody.appendChild(userDiv);
+        userInput.value = '';
+
+        // Simulate AI Response (Connect to your backend API here)
+        setTimeout(() => {
+            const botDiv = document.createElement('div');
+            botDiv.className = 'message bot';
+            botDiv.textContent = "I'm processing that for you!";
+            chatBody.appendChild(botDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 500);
+    }
+};
+nav {
+    margin-left: auto; 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+}
+
+nav ul li {
+    margin-left: 30px; 
+}
+.slider {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden; 
+  border-radius: 10px;
+}
+
+.slides {
+  display: flex; 
+  width: 100%;
+  transition: transform 0.5s ease-in-out; 
+}
+
+.slides img {
+  width: 100%; 
+  display: block;
+}
+.card {
+  background: rgba(11, 232, 232, 0.2);
+  backdrop-filter: blur(10px); 
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding: 20px;
+  transition: transform 0.3s ease; 
+}
+
+.card:hover {
+  transform: translateY(-10px); 
+}

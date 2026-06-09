@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ሙሐስ አካዳሚ | Muhas Academy</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #27ae60;
+            --accent-color: #f39c12;
+            --light-bg: #eefaf5;
+            --text-dark: #333;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Times New Roman', 'Segoe UI', sans-serif; }
+        body { background-color: var(--light-bg); line-height: 1.6; color: var(--text-dark); overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+    
+        header {
+            background: rgb(156, 243, 243); padding: 0.8rem 5%; display: flex; justify-content: space-between;
+            align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo-container { display: flex; align-items: center; text-decoration: none; }
+        .logo-img { height: 50px; width: 50px; margin-right: 12px; border-radius: 50%; }
+        .logo-text { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+        
+        nav { margin-left: auto; }
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { text-decoration: none; color: var(--primary-color); font-weight: 600; transition: 0.3s; }
+        nav ul li a:hover { color: var(--accent-color); }
+        #langBtn { background: var(--accent-color); border: none; color: white; padding: 6px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        
+        .hero { height: 70vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('background.png') no-repeat center center/cover; background-color: #2c3e50; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 0 20px; }
+        .hero h2 { font-size: 3rem; margin-bottom: 15px; }
+        
+        .news-container { width: 100%; overflow: hidden; background-color: #12f3dd; color: rgb(10, 24, 227); padding: 10px 0; white-space: nowrap; }
+        .news-ticker { display: inline-block; padding-left: 100%; animation: scroll-left 25s linear infinite; font-weight: bold; }
+        @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        .services { padding: 60px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: rgb(195, 246, 236); padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+        .card:hover { transform: translateY(-10px); }
+        
+        #gallery { padding: 60px 5%; background: #bce7f7; }
+        .slider-container { position: relative; max-width: 900px; margin: 30px auto; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; height: 500px; object-fit: cover; display: block; }
+        .prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 15px; cursor: pointer; z-index: 10; }
+        .next { right: 0; }
+        
+        #contact { padding: 60px 5%; text-align: center; background: #dff9fb; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
+        .contact-box { background: rgba(255, 255, 255, 0.5); padding: 20px; border-radius: 10px; min-width: 200px; }
+        footer { background: var(--primary-color); color: rgb(243, 186, 186); text-align: center; padding: 20px; }
+        
+        @media (max-width: 768px) { header { flex-direction: column; } .hero h2 { font-size: 2rem; } .slide img { height: 300px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/50'">
+            <span class="logo-text lang" data-am="ሙሐስ አካዳሚ" data-en="Muhas Academy">ሙሐስ አካዳሚ</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="lang" data-am="መነሻ" data-en="Home">መነሻ</a></li>
+                <li><a href="#notice" class="lang" data-am="ማስታወቂያ" data-en="Notice">ማስታወቂያ</a></li>
+                <li><a href="#news" class="lang" data-am="ዜና እና ሁነቶች" data-en="News & Events">ዜና እና ሁነቶች</a></li>
+                <li><a href="#gallery" class="lang" data-am="ክምችት" data-en="Gallery">ክምችት</a></li>
+                <li><a href="#contact" class="lang" data-am="ያግኙን" data-en="Contact Us">ያግኙን</a></li>
+                <li><button onclick="toggleLanguage()" id="langBtn">English</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2 class="lang" data-am="ጥራት ያለው ትምህርት ለሁሉም!" data-en="Quality Education For All!">ጥራት ያለው ትምህርት ለሁሉም!</h2>
+        <p class="lang" data-am="በሙሐስ አካዳሚ ጥራት ያለው ትምህርት ለልጆች በማቅረብ ብሩህ ተስፋቸውን እናሳካለን።" data-en="At Muhas Academy, we ensure a bright future by providing quality education to children.">
+            በሙሐስ አካዳሚ ጥራት ያለው ትምህርት ለልጆቻችን በማቅረብ ብሩህ ተስፋቸውን እናሳካለን።
+        </p>
+    </section>
+<div id="news" class="news-container">
+        <div class="news-ticker" id="ticker-content">
+            <span class="lang" data-am="በሙሀስ አካዳሚ የእንግሊዝኛ ቋንቋ ችሎታን ለማሳደግ ጥረቶች እየተደረጉ ነው።  " data-en="Efforts to improve English language proficiency at Muhas Academy  • ">በሙሀስ አካዳሚ የእንግሊዝኛ ቋንቋ ችሎታን ለማሳደግ ጥረቶች እየተደረጉ ነው። • </span>
+            <span class="lang" data-am="የባለሙያ ድጋፍ እና የስልጠና ድጋፍ  • " data-en="Students have been provided with essential English speaking vocabulary and sentences to practice with.  • ">ለእንግሊዘኛቋንቋ ንግግር ቁልፍ የሆኑ ቃላት እና አረፍተ ነገሮች ለተማሪዎች እንዲሰጣቸው እና እንዲለማመዱ ተደርጓል፡፡  • </span>
+          
+        </div>
+    </div>
+
+    <section id="notice" style="padding: 60px 5%; background-color: #fff; text-align: center;">
+        <h2 class="lang" data-am="ማስታወቂያ" data-en="Important Notice" style="color: var(--primary-color); margin-bottom: 20px;">ማስታወቂያ</h2>
+        <div style="max-width: 800px; margin: 0 auto; background: #fff3cd; border-left: 5px solid var(--accent-color); padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <h3 class="lang" data-am="የምዝገባ ጥሪ!" data-en="Registration Open!">የምዝገባ ጥሪ!</h3>
+            <p class="lang" data-am="ለ2019 የትምህርት ዘመን አዲስ ተማሪዎችን መመዝገብ ጀምረናል። ቦታ ሳይሞላ ልጆቻችሁን አስመዝግቡ።" data-en="We have started registering new students for the 2026/2027 academic year. Register your children before spaces fill up.">
+                ለ2019 የትምህርት ዘመን አዲስ ተማሪዎችን መመዝገብ ጀምረናል። ቦታ ሳይሞላ ልጆቻችሁን አስመዝግቡ።
+            </p>
+        </div>
+        </section>
+
+        <section class="services">
+        <div class="card">
+            <h3 class="lang" data-am="ቅድመ መደበኛ" data-en="Preschool">ቅድመ መደበኛ</h3>
+            <p class="lang" data-am="ለልጆች ምቹ እና ጨዋታን ከትምህርት ጋር ያጣመረ አካባቢ።" data-en="A nurturing environment that combines learning with play for young children.">ለልጆች ምቹ እና ጨዋታን ከትምህርት ጋር ያጣመረ አካባቢ።</p>
+        </div>
+        <div class="card">
+            <h3 class="lang" data-am="መጀመሪያ ደረጃ" data-en="Primary School">መጀመሪያ ደረጃ</h3>
+            <p class="lang" data-am="ጠንካራ መሰረት ያላቸው እና በስነ-ምግባር የታነጹ ተማሪዎችን እናፈራለን።" data-en="We develop students with a strong academic foundation and excellent character.">ጠንካራ መሰረት ያላቸው እና በስነ-ምግባር የታነጹ ተማሪዎችን እናፈራለን።</p>
+        </div>
+    </section>
+<section id="gallery">
+    <h2 class="lang" style="text-align: center;" data-am="የፎቶ ጋለሪ" data-en="Photo Gallery">የፎቶ ጋለሪ</h2>
+    <div class="slider-container">
+        <div class="slides" id="slide-row"></div>
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+    </div>
+    <div id="dot-container" style="text-align:center; margin-top:15px;"></div>
+</section>
+
+    <section id="contact">
+        <div class="contact-box">
+            <h4 class="lang" data-am="አድራሻ" data-en="Address">አድራሻ</h4>
+            <span class="lang" data-am="ሸገር ከተማ፣ ኢትዮጵያ" data-en="Sheger City, Ethiopia">ሸገር ከተማ፣ ኢትዮጵያ</span>
+            <p style="margin-top: 5px; font-size: 0.9rem;">
+                <a href="https://maps.google.com" target="_blank" style="color: #0c90e2; text-decoration: none; font-weight: bold;">
+                    <span class="lang" data-am="በካርታ ለመክፈት እዚህ ይጫኑ" data-en="Open in Google Maps">በካርታ ለመክፈት እዚህ ይጫኑ</span>
+                </a>
+            </p>
+        </div>
+        <div class="contact-box">
+            <h4 class="lang" data-am="ስልክ" data-en="Phone">ስልክ</h4>
+            <p>+251 118 37 65 00</p>
+        </div>
+        <div class="contact-box">
+            <h4 class="lang" data-am="ኢሜይል" data-en="Email">ኢሜይል</h4>
+            <a href="mailto:info@muhasacademy.com" style="color: var(--primary-color);">info@muhasacademy.com</a>
+        </div>
+        <div class="contact-box">
+            <h4 class="lang" data-am="ቴሌግራም" data-en="Telegram">ቴሌግራም</h4>
+            <a href="https://t.me/muhasacademy" target="_blank" style="text-decoration: none; color: #0088cc; font-weight: bold;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" style="width: 25px; vertical-align: middle;"> @muhas_academy
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p class="lang" data-am="© 2026 ሙሐስ አካዳሚ።" data-en="© 2026 Muhas Academy.">© 2026 ሙሐስ አካዳሚ።</p>
+    </footer>
+
+    <script>
+        let currentLang = 'am';
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRV24izRKMCcdc_a2V0vBLDvh0m1ExLHVHbwqMCmajDQotW4C2hn5quW1FJ2Uk4xh8KMJ-KVYoHpsI1/pub?output=csv';
+
+            function toggleLanguage() {
+            const elements = document.querySelectorAll('.lang');
+            const btn = document.getElementById('langBtn');
+            currentLang = (currentLang === 'am') ? 'en' : 'am';
+            
+            elements.forEach(el => {
+                const text = el.getAttribute('data-' + currentLang);
+                if (text) el.innerText = text;
+            });
+            btn.innerText = (currentLang === 'am') ? 'English' : 'አማርኛ';
+            
+          
+            fetchNews();
+        }
+
+        async function fetchNews() {
+            const ticker = document.getElementById('ticker-content');
+            try {
+                const response = await fetch(sheetURL);
+                const csvData = await response.text();
+                const rows = csvData.split('\n').slice(1);
+                
+                if(rows.length > 0 && rows[0].trim() !== "") {
+                    ticker.innerHTML = '';
+                    rows.forEach(row => {
+                        const cols = row.split(',');
+                        if (cols.length >= 5) {
+                           
+                            const title = currentLang === 'am' ? cols[1] : cols[2];
+                            const desc = currentLang === 'am' ? cols[3] : cols[4];
+                            ticker.innerHTML += `<span> ${title} - ${desc} &nbsp;&bull;&nbsp; </span>`;
+                        }
+                    });
+                }
+            } catch (e) { 
+                console.log("ከGoogle Sheets ዜና መጫን አልተቻለም፣ ነባሪው ጽሑፍ እየታየ ነው።"); 
+            }
+        }
+
+        const slideRow = document.getElementById('slide-row');
+        const dots = document.getElementById('dot-container');
+        let index = 0;
+        const total = 24; 
+
+        for (let i = 1; i <= total; i++) {
+            slideRow.innerHTML += `<div class="slide"><img src="photo${i}.png" onerror="this.src='https://via.placeholder.com/900x500?text=Photo+${i}'"></div>`;
+            dots.innerHTML += `<span onclick="goToSlide(${i-1})" id="dot-${i-1}" style="height:10px; width:10px; margin:5px; background:#bbb; display:inline-block; border-radius:50%; cursor:pointer;"></span>`;
+        }
+
+        function showSlide() {
+            if (index >= total) index = 0;
+            if (index < 0) index = total - 1;
+            slideRow.style.transform = `translateX(${-index * 100}%)`;
+                       
+            for (let i = 0; i < total; i++) {
+                document.getElementById(`dot-${i}`).style.background = (i === index) ? 'var(--accent-color)' : '#bbb';
+            }
+        }
+        function changeSlide(n) { index += n; showSlide(); }
+        function goToSlide(n) { index = n; showSlide(); }
+      
+        setInterval(() => { index++; showSlide(); }, 5000);
+        showSlide();
+        fetchNews();
+    </script>
+    </body>
+</html>
